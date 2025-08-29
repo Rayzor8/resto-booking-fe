@@ -31,21 +31,21 @@ const features = [
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen">
+    <div>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-card to-background py-20 px-4">
+      <section className="relative bg-gradient-to-br from-card to-background py-20 px-4  bg-[url(/banner.png)] bg-no-repeat md:bg-repeat sm:bg-center">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-            Benvenuti a <span className="text-primary">Bella Vista</span>
+          <h1 className="text-6xl font-bold text-primary mb-6 text-shadow-lg">
+            Benvenuti a <span>Bella Vista</span>
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="md:text-shadow-none text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Experience authentic Italian cuisine crafted with passion and
             tradition. From handmade pasta to wood-fired pizzas, every dish
             tells a story of Italy.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild>
-              <Link href="/book">Book a Table</Link>
+              <Link href="/booking">Book a Table</Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
               <Link href="/menu">View Menu</Link>
@@ -92,7 +92,7 @@ export default function HomePage() {
             Italy.
           </p>
           <Button size="lg" variant="secondary" asChild>
-            <Link href="/book">Make Reservation</Link>
+            <Link href="/booking">Make Reservation</Link>
           </Button>
         </div>
       </section>

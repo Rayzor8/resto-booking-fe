@@ -5,12 +5,12 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #4b5563;
+  --foreground: #3E5F44;
   --card: #E8FFD7;
   --card-foreground: #4b5563;
   --popover: #ffffff;
   --popover-foreground: #4b5563;
-  --primary: #3E5F44;
+  --primary: #004030;
   --primary-foreground: #ffffff;
   --secondary: #5E936C;
   --secondary-foreground: #ffffff;
@@ -21,7 +21,7 @@
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
   --border: #e5e7eb;
-  --input: #ffffff;
+  --input: #5E936C;
   --ring: #5E936C;
   --chart-1: #f97316;
   --chart-2: #059669;

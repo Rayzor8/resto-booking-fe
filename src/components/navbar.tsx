@@ -11,10 +11,8 @@ import { Menu } from "lucide-react"
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Menu", href: "/menu" },
-  { name: "Book Table", href: "/book" },
-  { name: "My Reservations", href: "/reservations" },
-  { name: "About", href: "/about" },
-  { name: "Gallery", href: "/gallery" },
+  { name: "Book Table", href: "/booking" },
+  { name: "My Reservations", href: "/reservations" }
 ]
 
 export function Navbar() {
