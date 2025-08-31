@@ -50,7 +50,7 @@ export function Navbar() {
           {/* Desktop CTA Button */}
           <div className="hidden md:block">
             <Button asChild>
-              <Link href="/book">Reserve Now</Link>
+              <Link href="/booking">Reserve Now</Link>
             </Button>
           </div>
 
@@ -79,7 +79,7 @@ export function Navbar() {
                   ))}
                   <div className="px-4 pt-4">
                     <Button asChild className="w-full">
-                      <Link href="/book" onClick={() => setIsOpen(false)}>
+                      <Link href="/booking" onClick={() => setIsOpen(false)}>
                         Reserve Now
                       </Link>
                     </Button>

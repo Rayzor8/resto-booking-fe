@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { MapPin, Phone, GitBranchIcon } from "lucide-react";
 
+const quickLinks = [
+  { name: "Home", href: "/" },
+  { name: "Menu", href: "/menu" },
+  { name: "Book Table", href: "/booking" },
+  { name: "My Reservations", href: "/reservations" },
+];
+
 export function Footer() {
   return (
     <footer className="bg-card border-t border-border mt-16">
@@ -50,16 +57,7 @@ export function Footer() {
             <h3 className="font-semibold text-foreground">Hours</h3>
             <div className="space-y-2 text-sm text-muted-foreground">
               <div className="flex justify-between">
-                <span>Mon - Thu</span>
-                <span>5:00 PM - 10:00 PM</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Fri - Sat</span>
-                <span>5:00 PM - 11:00 PM</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Sunday</span>
-                <span>4:00 PM - 9:00 PM</span>
+                <span>15:00 PM - 20:00 PM</span>
               </div>
             </div>
           </div>
@@ -68,30 +66,15 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="font-semibold text-foreground">Quick Links</h3>
             <div className="space-y-2 text-sm">
-              <Link
-                href="/menu"
-                className="block text-muted-foreground hover:text-primary transition-colors"
-              >
-                Menu
-              </Link>
-              <Link
-                href="/book"
-                className="block text-muted-foreground hover:text-primary transition-colors"
-              >
-                Reservations
-              </Link>
-              <Link
-                href="/about"
-                className="block text-muted-foreground hover:text-primary transition-colors"
-              >
-                About Us
-              </Link>
-              <Link
-                href="/gallery"
-                className="block text-muted-foreground hover:text-primary transition-colors"
-              >
-                Gallery
-              </Link>
+              {quickLinks.map((link, index) => (
+                <Link
+                  key={index}
+                  href={link.href}
+                  className="block text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
+import { ReservationProvider } from "@/context/reservation-context";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -23,10 +24,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <Toaster />
+        <ReservationProvider>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+          <Toaster />
+        </ReservationProvider>
       </body>
     </html>
   );

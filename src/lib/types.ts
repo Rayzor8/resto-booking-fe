@@ -8,10 +8,10 @@ export const bookingStepOneSchema = z.object({
 
 export const bookingStepTwoSchema = z.object({
   time: z.string().min(1, "Please select a time"),
-  guests: z
-    .number()
-    .min(1, "At least 1 guest required")
-    .max(12, "Maximum 12 guests allowed"),
+  guests: z.coerce
+    .number<number>()
+    .min(1, "Please select at least 1 guest")
+    .max(20, "Please select a maximum of 20 guests"),
 });
 
 export const bookingStepThreeSchema = z.object({
@@ -32,7 +32,6 @@ export type CompleteBooking = z.infer<typeof completeBookingSchema>;
 
 export interface Reservation extends CompleteBooking {
   id: string;
-  status: "confirmed" | "pending" | "cancelled";
   createdAt: string;
 }
 

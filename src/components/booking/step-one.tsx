@@ -21,17 +21,17 @@ interface BookingStepOneProps {
   initialData?: BookingStepOne | null;
 }
 
-export function BookingStepOne({
+export default function BookingStepOne({
   onComplete,
-  initialData,
 }: BookingStepOneProps) {
   const form = useForm<BookingStepOne>({
     resolver: zodResolver(bookingStepOneSchema),
-    defaultValues: initialData || {
+    defaultValues: {
       date: "",
       seatingType: undefined,
     },
   });
+
 
   const onSubmit = (data: BookingStepOne) => {
     onComplete(data);
@@ -117,5 +117,3 @@ export function BookingStepOne({
     </Form>
   );
 }
-
-export default BookingStepOne;

@@ -8,18 +8,20 @@ import type {
 } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { BookingStepOne } from "@/components/booking/step-one";
+import BookingStepOne from "@/components/booking/step-one";
+import BookingStepTwo from "@/components/booking/step-two";
+import BookingStepThree from "@/components/booking/step-three";
+
 
 export default function BookPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [stepOneData, setStepOneData] = useState<StepOneData | null>(null);
   const [stepTwoData, setStepTwoData] = useState<StepTwoData | null>(null);
-  const [stepThreeData, setStepThreeData] = useState<StepThreeData | null>(
-    null
-  );
 
   const totalSteps = 3;
   const progress = (currentStep / totalSteps) * 100;
+
+
 
   const handleStepOneComplete = (data: StepOneData) => {
     setStepOneData(data);
@@ -31,9 +33,7 @@ export default function BookPage() {
     setCurrentStep(3);
   };
 
-  const handleStepThreeComplete = (data: StepThreeData) => {
-    setStepThreeData(data);
-  };
+
 
   const handleBack = () => {
     if (currentStep > 1) {
@@ -80,7 +80,21 @@ export default function BookPage() {
             {currentStep === 1 && (
               <BookingStepOne
                 onComplete={handleStepOneComplete}
-                initialData={stepOneData}
+              />
+            )}
+
+            {currentStep === 2 && stepOneData && (
+              <BookingStepTwo
+                onComplete={handleStepTwoComplete}
+                onBack={handleBack}
+                dateData={stepOneData}
+              />
+            )}
+
+            {currentStep === 3 && stepOneData && stepTwoData && (
+              <BookingStepThree
+                onBack={handleBack}
+                bookingData={{ ...stepOneData, ...stepTwoData }}
               />
             )}
           </CardContent>
