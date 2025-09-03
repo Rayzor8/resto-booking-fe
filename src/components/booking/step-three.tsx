@@ -26,7 +26,9 @@ import {
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useReservation } from "@/context/reservation-context";
-import { set } from "zod";
+import { useState } from "react";
+import { formatDate } from "@/lib/utils";
+import ReservationDialog from "../reservations/reservation-dialog";
 
 interface BookingStepThreeProps {
   onBack: () => void;
@@ -42,6 +44,8 @@ export default function BookingStepThree({
   const router = useRouter();
 
   const { addReservation } = useReservation();
+  const [isComplete, setIsComplete] = useState(false);
+  const [bookNumber, setBookNumber] = useState<string | null>(null);
 
   const form = useForm<BookingStepThree>({
     resolver: zodResolver(bookingStepThreeSchema),
@@ -65,20 +69,17 @@ export default function BookingStepThree({
 
     addReservation(reservation);
 
-    toast.success("Reservation created successfully");
+    setIsComplete(true);
+    setBookNumber(reservation.id);
+  };
 
+  const onCompleteClose = () => {
+    setIsComplete(false);
+    toast.success("Reservation created successfully");
+    setBookNumber(null);
     setTimeout(() => {
       router.push("/reservations");
     }, 1000);
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
   };
 
   return (
@@ -200,6 +201,12 @@ export default function BookingStepThree({
           </div>
         </form>
       </Form>
+
+      <ReservationDialog
+        isOpenDialog={isComplete}
+        onClose={onCompleteClose}
+        bookingNumber={bookNumber}
+      />
     </div>
   );
 }

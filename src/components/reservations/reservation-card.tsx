@@ -26,22 +26,22 @@ export default function ReservationCard({
   onDelete,
 }: ReservationCardProps) {
   return (
-    <Card className="hover:shadow-md transition-shadow">
-      <CardHeader className="pb-3">
-        <div className="flex justify-between items-start">
-          <div>
-            <CardTitle className="text-lg">{reservation.fullName}</CardTitle>
-            <Badge>test</Badge>
-          </div>
+    <Card className="hover:shadow-md transition-shadow flex flex-col gap-1 py-4">
+      <CardHeader>
+        <div className="flex justify-between items-center">
+          <CardTitle className="text-sm font-bold">
+           {"🍴"} Booking Under - {reservation.fullName}
+          </CardTitle>
+
           <div className="flex gap-2">
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   size="sm"
                   className="text-destructive hover:text-destructive bg-transparent"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Trash2 />
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
@@ -67,7 +67,7 @@ export default function ReservationCard({
         </div>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4 text-muted-foreground" />
             <span>{formatDate(reservation.date)}</span>
@@ -91,6 +91,9 @@ export default function ReservationCard({
 
         <div className="mt-4 pt-4 border-t border-border">
           <div className="text-sm">
+            <div className="mb-1">
+              <strong>Booking Number:</strong> {reservation.id}
+            </div>
             <div className="mb-1">
               <strong>Email:</strong> {reservation.email}
             </div>
