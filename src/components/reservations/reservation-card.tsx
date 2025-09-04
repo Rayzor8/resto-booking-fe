@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,22 +15,30 @@ import {
 import type { Reservation } from "@/lib/types";
 import { Trash2, Calendar, Clock, Users, MapPin } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+import { useReservation } from "@/context/reservation-context";
 
 interface ReservationCardProps {
   reservation: Reservation;
-  onDelete: (id: string) => void;
 }
 
 export default function ReservationCard({
   reservation,
-  onDelete,
 }: ReservationCardProps) {
+  const { deleteReservation } = useReservation();
+
+  const onDeleteReservation = (id: string) => {
+    deleteReservation(id);
+    toast.success("Reservation deleted successfully",{
+      duration: 500
+    });
+  };
+
   return (
     <Card className="hover:shadow-md transition-shadow flex flex-col gap-1 py-4">
       <CardHeader>
         <div className="flex justify-between items-center">
           <CardTitle className="text-sm font-bold">
-           {"🍴"} Booking Under - {reservation.fullName}
+            {"🍴"} Booking Under - {reservation.fullName}
           </CardTitle>
 
           <div className="flex gap-2">
@@ -53,10 +61,10 @@ export default function ReservationCard({
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Keep Reservation</AlertDialogCancel>
+                  <AlertDialogCancel className="cursor-pointer">Keep Reservation</AlertDialogCancel>
                   <AlertDialogAction
-                    onClick={() => onDelete(reservation.id)}
-                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    onClick={() => onDeleteReservation(reservation.id)}
+                    className="bg-destructive  hover:bg-red-700 cursor-pointer"
                   >
                     Cancel Reservation
                   </AlertDialogAction>

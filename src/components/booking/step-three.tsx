@@ -59,7 +59,7 @@ export default function BookingStepThree({
 
   const onSubmit = (data: BookingStepThree) => {
     const reservation: Reservation = {
-      id: `res_${Date.now()}_${Math.random().toString(36)}`,
+      id: `book_${Date.now()}_${Math.random().toString(36)}`,
       ...bookingData,
       ...data,
       createdAt: new Date().toISOString(),

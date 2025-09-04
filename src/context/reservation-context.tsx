@@ -6,6 +6,7 @@ import React, { createContext, useState, useContext, ReactNode } from "react";
 export interface ReservationContextType {
   reservations: Reservation[];
   addReservation: (reservation: Reservation) => void;
+  deleteReservation: (id: string) => void;
   getAvailableSeats: (date: string, time: string, seatingType: string) => number;
 }
 
@@ -26,6 +27,10 @@ export const ReservationProvider: React.FC<{ children: ReactNode }> = ({
     setReservations((prev) => [...prev, newReservation]);
   };
 
+  const deleteReservation = (id: string) => {
+    setReservations((prev) => prev.filter((res) => res.id !== id));
+  };
+
   const getAvailableSeats = (date: string, time: string , seatingType: string): number => {
     const reservedSeats = reservations
       .filter((res) => res.date === date && res.time === time && res.seatingType === seatingType)
@@ -36,7 +41,7 @@ export const ReservationProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <ReservationContext.Provider
-      value={{ reservations, addReservation, getAvailableSeats }}
+      value={{ reservations, addReservation,deleteReservation, getAvailableSeats }}
     >
       {children}
     </ReservationContext.Provider>

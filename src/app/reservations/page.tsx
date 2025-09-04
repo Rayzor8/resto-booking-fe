@@ -2,7 +2,6 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 import { useReservation } from "@/context/reservation-context";
 import ReservationCard from "@/components/reservations/reservation-card";
 import { Label } from "@/components/ui/label";
@@ -10,12 +9,6 @@ import ReservationSearch from "@/components/reservations/reservation-search";
 
 export default function ReservationsPage() {
   const { reservations } = useReservation();
-
-  const deleteReservation = (id: string) => {
-    const updated = reservations.filter((res) => res.id !== id);
-    // setReservations(updated)
-    toast.success("Reservation deleted successfully");
-  };
 
   return (
     <div className="min-h-screen bg-background py-8 px-4">
@@ -46,8 +39,8 @@ export default function ReservationsPage() {
             <div>
               <Label>Filters by</Label>
               <div className="grid grid-cols-2 mt-1 gap-2">
-                <Button>Indoor</Button>
-                <Button>Outdoor</Button>
+                <Button className="cursor-pointer">Indoor</Button>
+                <Button className="cursor-pointer">Outdoor</Button>
               </div>
               <ReservationSearch />
             </div>
@@ -76,7 +69,6 @@ export default function ReservationsPage() {
               <ReservationCard
                 key={reservation.id}
                 reservation={reservation}
-                onDelete={deleteReservation}
               />
             ))}
           </div>
