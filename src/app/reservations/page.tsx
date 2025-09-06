@@ -45,6 +45,7 @@ export default function ReservationsPage() {
                   <Button
                     key={index}
                     variant={filter === seatingFilter ? "default" : "outline"}
+                    className="cursor-pointer"
                     onClick={() => setSeatingFilter(filter )}
                   >
                     {filter}

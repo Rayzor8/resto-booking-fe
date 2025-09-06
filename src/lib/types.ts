@@ -42,7 +42,7 @@ export const menuItemSchema = z.object({
   description: z.string(),
   price: z.number(),
   category: z.enum(["antipasti", "primi", "secondi", "dolci", "bevande"]),
-  image: z.string().optional(),
+  image: z.string(),
   isVegetarian: z.boolean().default(false),
   isGlutenFree: z.boolean().default(false),
 });
