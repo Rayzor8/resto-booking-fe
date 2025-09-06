@@ -46,6 +46,7 @@ export default function BookingStepThree({
   const { addReservation } = useReservation();
   const [isComplete, setIsComplete] = useState(false);
   const [bookNumber, setBookNumber] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<BookingStepThree>({
     resolver: zodResolver(bookingStepThreeSchema),
@@ -75,10 +76,12 @@ export default function BookingStepThree({
 
   const onCompleteClose = () => {
     setIsComplete(false);
+    setIsLoading(true);
     toast.success("Reservation created successfully");
     setBookNumber(null);
     setTimeout(() => {
       router.push("/reservations");
+      setIsLoading(false);
     }, 1000);
   };
 
@@ -195,7 +198,7 @@ export default function BookingStepThree({
             >
               Back
             </Button>
-            <Button type="submit" className="flex-1">
+            <Button type="submit" className="flex-1" disabled={isLoading}>
               Confirm Reservation
             </Button>
           </div>

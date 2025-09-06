@@ -7,8 +7,11 @@ import ReservationCard from "@/components/reservations/reservation-card";
 import { Label } from "@/components/ui/label";
 import ReservationSearch from "@/components/reservations/reservation-search";
 
+
 export default function ReservationsPage() {
-  const { reservations } = useReservation();
+  const { reservations,seatingFilter,setSeatingFilter} = useReservation();
+
+  const buttonsFilter  = ["all", "indoor", "outdoor"] as const;
 
   return (
     <div className="min-h-screen bg-background py-8 px-4">
@@ -22,15 +25,14 @@ export default function ReservationsPage() {
           </p>
         </div>
 
-        {/* Summary Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <Card className="col-span-1">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-primary">
                 {reservations.length}
               </div>
-              <div className="text-sm text-muted-foreground">
-                Total Reservations
+              <div className="text-sm text-muted-foreground capitalize">
+                {seatingFilter} Reservations
               </div>
             </CardContent>
           </Card>
@@ -38,9 +40,16 @@ export default function ReservationsPage() {
           <Card className="col-span-2  p-4">
             <div>
               <Label>Filters by</Label>
-              <div className="grid grid-cols-2 mt-1 gap-2">
-                <Button className="cursor-pointer">Indoor</Button>
-                <Button className="cursor-pointer">Outdoor</Button>
+              <div className="grid grid-cols-3 mt-1 gap-2">
+                {buttonsFilter.map((filter,index) => (
+                  <Button
+                    key={index}
+                    variant={filter === seatingFilter ? "default" : "outline"}
+                    onClick={() => setSeatingFilter(filter )}
+                  >
+                    {filter}
+                  </Button>
+                ))}
               </div>
               <ReservationSearch />
             </div>

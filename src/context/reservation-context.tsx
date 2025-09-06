@@ -2,12 +2,20 @@
 import { Reservation } from "@/lib/types";
 import React, { createContext, useState, useContext, ReactNode } from "react";
 
-
 export interface ReservationContextType {
   reservations: Reservation[];
+  seatingFilter: "all" | "indoor" | "outdoor";
+  setSeatingFilter: React.Dispatch<
+    React.SetStateAction<"all" | "indoor" | "outdoor">
+  >;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   addReservation: (reservation: Reservation) => void;
   deleteReservation: (id: string) => void;
-  getAvailableSeats: (date: string, time: string, seatingType: string) => number;
+  getAvailableSeats: (
+    date: string,
+    time: string,
+    seatingType: string
+  ) => number;
 }
 
 const MAX_SEATS_PER_HOUR = 20;
@@ -23,6 +31,12 @@ export const ReservationProvider: React.FC<{ children: ReactNode }> = ({
   const [reservations, setReservations] =
     useState<Reservation[]>(DUMMY_RESERVATIONS);
 
+  const [seatingFilter, setSeatingFilter] = useState<
+    "all" | "indoor" | "outdoor"
+  >("all");
+
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
   const addReservation = (newReservation: Reservation) => {
     setReservations((prev) => [...prev, newReservation]);
   };
@@ -31,17 +45,42 @@ export const ReservationProvider: React.FC<{ children: ReactNode }> = ({
     setReservations((prev) => prev.filter((res) => res.id !== id));
   };
 
-  const getAvailableSeats = (date: string, time: string , seatingType: string): number => {
+  const getAvailableSeats = (
+    date: string,
+    time: string,
+    seatingType: string
+  ): number => {
     const reservedSeats = reservations
-      .filter((res) => res.date === date && res.time === time && res.seatingType === seatingType)
+      .filter(
+        (res) =>
+          res.date === date &&
+          res.time === time &&
+          res.seatingType === seatingType
+      )
       .reduce((total, res) => total + res.guests, 0);
 
     return Math.max(0, MAX_SEATS_PER_HOUR - reservedSeats);
   };
 
+  const filteredReservations = reservations.filter((r) => {
+    const matchesFilter =
+      seatingFilter === "all" || r.seatingType === seatingFilter;
+    const matchesSearch =
+      !searchQuery || r.id.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
+
   return (
     <ReservationContext.Provider
-      value={{ reservations, addReservation,deleteReservation, getAvailableSeats }}
+      value={{
+        reservations: filteredReservations,
+        seatingFilter,
+        setSeatingFilter,
+        setSearchQuery,
+        addReservation,
+        deleteReservation,
+        getAvailableSeats,
+      }}
     >
       {children}
     </ReservationContext.Provider>
